@@ -19,6 +19,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+//		.abcdefghijklmnopqrstuvwxyz
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		try {
 			User mUser = userService.login(user);
 
-			System.out.println("mUser = " + mUser+"  user = "+user);
+//			System.out.println("mUser = " + mUser+"  user = "+user);
 
 			if (mUser == null) {
 				return LOGIN;
