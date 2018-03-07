@@ -30,6 +30,11 @@
 		<many-to-one name="industry" class="com.azhuang.domain.Dict" column="cust_industry"/>
 		<many-to-one name="level" class="com.azhuang.domain.Dict" column="cust_level"/>
 	
+			<!-- 让客户放弃外键的维护的权力 -->
+		<set name="linkmans" inverse="true">
+			<key column="lkm_cust_id"/>
+			<one-to-many class="com.azhuang.domain.Linkman"/>
+		</set>
 		
 		
 	</class>

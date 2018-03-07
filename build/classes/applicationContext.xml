@@ -100,6 +100,20 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+	<!-- 联系人模块配置 -->
+	<bean id="linkmanAction" class="com.azhuang.web.action.LinkmanAction"
+		scope="prototype">
+
+		<property name="linkmanService" ref="linkmanService" />
+	</bean>
+
+	<bean id="linkmanService" class="com.azhuang.serviceimpl.LinkmanServiceImpl">
+		<property name="linkmanDao" ref="linkmanDao"></property>
+	</bean>
+
+	<bean id="linkmanDao" class="com.azhuang.daoimpl.LinkmanDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 </beans>
 

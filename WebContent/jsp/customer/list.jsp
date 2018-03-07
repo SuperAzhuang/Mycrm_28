@@ -84,6 +84,15 @@
 
 		}, "json");
 
+		function deleteConfirm() {
+			var msg = "您真的确定要删除吗？\n\n请确认！";
+			if (confirm(msg) == true) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 	});
 </SCRIPT>
 
@@ -92,7 +101,7 @@
 <BODY>
 	<FORM id="customerForm" name="customerForm"
 		action="${pageContext.request.contextPath }/customer_findCustomerPage.action"
-		method="post">
+		method="post" onsubmit="return deleteConfirm()">
 
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
@@ -181,9 +190,9 @@
 														<TD>${customer.cust_phone }</TD>
 														<TD>${customer.cust_mobile }</TD>
 														<TD><a
-															href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.cust_id}">修改</a>
+															href="${pageContext.request.contextPath }/customer_editUi.action?cust_id=${customer.cust_id}">修改</a>
 															&nbsp;&nbsp; <a
-															href="${pageContext.request.contextPath }/customerServlet?method=delete&custId=${customer.cust_id}">删除</a>
+															href="${pageContext.request.contextPath }/customer_deleteCoustomer.action?cust_id=${customer.cust_id}" onclick="return  window.confirm('确定删除吗 ？')">删除</a>
 														</TD>
 													</TR>
 

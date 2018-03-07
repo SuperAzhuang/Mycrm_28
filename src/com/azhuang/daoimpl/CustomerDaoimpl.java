@@ -50,4 +50,30 @@ public class CustomerDaoimpl extends HibernateDaoSupport implements CustomerDao 
 		this.getHibernateTemplate().save(customer);
 	}
 
+	@Override
+	public Customer findById(Long cust_id) throws Exception {
+		// TODO Auto-generated method stub
+		List<Customer> lists = (List<Customer>) this.getHibernateTemplate().find("from Customer where cust_id = ?",
+				cust_id);
+		getHibernateTemplate().get(Customer.class, cust_id);
+		if (lists.size() > 0) {
+
+			return lists.get(0);
+		}
+
+		return null;
+	}
+
+	@Override
+	public void updateCustomer(Customer customer) throws Exception {
+		// TODO Auto-generated method stub
+		getHibernateTemplate().update(customer);
+	}
+
+	@Override
+	public void deleteCoustomer(Customer customer) throws Exception {
+		// TODO Auto-generated method stub
+		getHibernateTemplate().delete(customer);
+	}
+
 }

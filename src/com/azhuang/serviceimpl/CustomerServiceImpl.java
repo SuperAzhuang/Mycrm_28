@@ -24,9 +24,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public PageBean<Customer> findCustomerPage(int currPage, int pageSize, DetachedCriteria detachedCriteria)
 			throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		PageBean<Customer> pageBean = customerDao.findCustomerPage(currPage, pageSize, detachedCriteria);
-		
+
 		return pageBean;
 	}
 
@@ -34,6 +34,28 @@ public class CustomerServiceImpl implements CustomerService {
 	public void save(Customer customer) throws Exception {
 		// TODO Auto-generated method stub
 		customerDao.save(customer);
+	}
+
+	@Override
+	public Customer findById(Long cust_id) throws Exception {
+		// TODO Auto-generated method stub
+		Customer customer = customerDao.findById(cust_id);
+
+		return customer;
+	}
+
+	@Override
+	public void updateCustomer(Customer customer) throws Exception {
+		// TODO Auto-generated method stub
+		customerDao.updateCustomer(customer);
+
+	}
+
+	@Override
+	public void deleteCoustomer(Customer customer) throws Exception {
+		// TODO Auto-generated method stub
+		customerDao.deleteCoustomer(customer);
+
 	}
 
 }

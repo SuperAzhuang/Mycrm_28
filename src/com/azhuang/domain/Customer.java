@@ -1,5 +1,11 @@
 package com.azhuang.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+
 public class Customer {
 
 //	  `cust_id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '客户编号(主键)',
@@ -32,8 +38,17 @@ public class Customer {
 	private String cust_mobile;
 	
 	private String filepath;
+	// 和联系人配置一对多
+	// 默认不把set集合进行json的转换
+//	@JSONField(serialize=false)
+	private Set<Linkman> linkmans = new HashSet<Linkman>();
 	
-	
+	public Set<Linkman> getLinkmans() {
+		return linkmans;
+	}
+	public void setLinkmans(Set<Linkman> linkmans) {
+		this.linkmans = linkmans;
+	}
 	public Long getCust_id() {
 		return cust_id;
 	}

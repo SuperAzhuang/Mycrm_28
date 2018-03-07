@@ -3,6 +3,7 @@ package com.azhuang.web.action;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.Registration;
 
@@ -133,38 +134,119 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		return "addCustomerUi";
 
 	}
-//	customer_addCustomer
+
+	// customer_addCustomer
 	public String addCustomer() {
-		
-		
+
 		System.out.println("addCustomer addCustomer= ");
 		// 做文件的上传，说明用户选择了上传的文件了
-		if(uploadFileName != null){
+		if (uploadFileName != null) {
 			// 打印
-			System.out.println("文件类型："+uploadContentType);
+			System.out.println("文件类型：" + uploadContentType);
 			// 把文件的名称处理一下
 			String uuidname = UploadUtils.getUUIDName(uploadFileName);
 			// 把文件上传到D:\\apache-tomcat-7.0.52\\webapps\\upload
 			String path = "G:\\apache-tomcat-7.0.82\\webapps\\upload\\";
-//			String path = "D:\\apache-tomcat-7.0.52\\webapps\\upload\\";
+			// String path = "D:\\apache-tomcat-7.0.52\\webapps\\upload\\";
 			// 创建file对象
-			File file = new File(path+uuidname);
+			File file = new File(path + uuidname);
 			// 简单方式
 			try {
 				FileUtils.copyFile(upload, file);
 				// 把上传的文件的路径，保存到客户表中
-				customer.setFilepath(path+uuidname);
+				customer.setFilepath(path + uuidname);
 				// 保存客户成功了
 				customService.save(customer);
-				
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		}
-	
+
 		return "addCustomer";
+	}
+
+	public String editUi() {
+
+		// 默认customer压栈的了，Action默认压栈，model是Action类的书写 getModel(返回customer对象)
+		try {
+
+			customer = customService.findById(customer.getCust_id());
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// 方法二:在Action中使用ActionContext得到parameterMap获取参数:
+		ActionContext context = ActionContext.getContext();
+		Map parameterMap = context.getParameters();
+		Map session = context.getSession();// 得到会话
+
+		session.put("customer", customer);
+
+		String cust_id[] = (String[]) parameterMap.get("cust_id");
+
+		System.out.println("cust_id" + cust_id[0] + "  customer = " + customer);
+
+		return "editUi";
 
 	}
+
+	public String updateCustomer() {
+
+		if (uploadFileName != null) {
+			// // 先删除旧的图片
+			String oldFilepath = customer.getFilepath();
+			if (oldFilepath != null && !oldFilepath.trim().isEmpty()) {
+				// 说明，旧的路径存在的，删除图片
+				File f = new File(oldFilepath);
+				f.delete();
+			}
+
+			// 打印
+			System.out.println("文件类型：" + uploadContentType);
+			// 把文件的名称处理一下
+			String uuidname = UploadUtils.getUUIDName(uploadFileName);
+			// 把文件上传到D:\\apache-tomcat-7.0.52\\webapps\\upload
+			String path = "G:\\apache-tomcat-7.0.82\\webapps\\upload\\";
+			// String path = "D:\\apache-tomcat-7.0.52\\webapps\\upload\\";
+			// 创建file对象
+			File file = new File(path + uuidname);
+			// 简单方式
+			try {
+				FileUtils.copyFile(upload, file);
+				// 把上传的文件的路径，保存到客户表中
+				customer.setFilepath(path + uuidname);
+				// 保存客户成功了
+				customService.updateCustomer(customer);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		return "updateCustomer";
+	}
+
+	public String  deleteCoustomer(){
+		
+		try {
+			customer = customService.findById((customer.getCust_id()));
+			System.out.println("deleteCoustomer id：" + customer.getCust_id());
+			customService.deleteCoustomer(customer);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "deleteCoustomer";
+		
+	}
+
 }

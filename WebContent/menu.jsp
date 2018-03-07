@@ -159,11 +159,13 @@ A.active {
 											<TBODY>
 												<TR>
 													<TD class=menuSmall><A class=style2
-														href="linkmanServlet?method=add" target=main>－ 新增联系人</A></TD>
+														href="${pageContext.request.contextPath}/
+													linkman_addUi.action" target=main>－ 新增联系人</A></TD>
 												</TR>
 												<TR>
 													<TD class=menuSmall><A class=style2
-														href="linkmanServlet?method=list" target=main>－联系人列表</A></TD>
+														href="${pageContext.request.contextPath}/
+													linkman_findByPage.action" target=main>－联系人列表</A></TD>
 												</TR>
 
 											</TBODY>
